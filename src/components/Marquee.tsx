@@ -28,7 +28,7 @@ interface MarqueeProps {
 }
 
 const Marquee = ({ products }: MarqueeProps) => {
-    const items = products.slice(0, 15);
+    const items = products.slice(0, 20);
 
     if (items.length === 0) {
         return null;
@@ -36,12 +36,10 @@ const Marquee = ({ products }: MarqueeProps) => {
 
     return (
         <div className="w-full overflow-hidden border-b border-gray-200 bg-white">
-
             <MarqueeText
+            className="py-1"
                 direction="right"
-                
-                duration={35}
-                pauseOnHover
+                duration={10}
             >
                 <div className="flex items-center">
 

@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Navlinks from "@/components/NavLinks";
 import Marquee from "@/components/Marquee";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -81,6 +82,7 @@ export default async function RootLayout({
                 <Navlinks />
                 <Marquee products={products} />
                 {children}
+                <Footer/>
 
             </body>
         </html>

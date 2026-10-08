@@ -39,7 +39,7 @@ const Marquee = ({ products }: MarqueeProps) => {
             <MarqueeText
             className="py-1"
                 direction="right"
-                duration={10}
+                duration={5}
             >
                 <div className="flex items-center">
 

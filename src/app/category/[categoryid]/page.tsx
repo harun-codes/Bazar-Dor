@@ -1,0 +1,89 @@
+import ProductCard from "@/components/ProductCard";
+
+interface Product {
+  id: number;
+  slug: string;
+  nameBn: string;
+  category: string;
+  categoryNameBn: string;
+  categoryIcon: string;
+  unit: string;
+  image: string;
+  today: number;
+  yesterday: number;
+  lastWeek: number;
+  lastMonth: number;
+  change: {
+    dir: "up" | "down";
+    pct: number;
+  };
+}
+
+const CategoryPage = async ({
+  params,
+}: {
+  params: Promise<{ categoryid: string }>;
+}) => {
+  const { categoryid } = await params;
+
+  const res = await fetch(
+    "https://api.api-store.workers.dev/api/bazardor/products",
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch products");
+  }
+
+  const result = await res.json();
+
+  const products: Product[] = Array.isArray(result)
+    ? result
+    : result.data || [];
+
+  const categoryProducts = products.filter(
+    (product) => product.category === categoryid
+  );
+
+  return (
+    <main className="bg-[#f2f7f3] px-4 py-4 mt-5">
+
+         <div className="flex mx-auto max-w-6xl items-center gap-3 border border-[#dfe6e1] bg-white px-5 py-5">
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f1f3f1] text-2xl">
+            {categoryProducts[0]?.categoryIcon}
+          </div>
+
+          <div>
+            <h1 className="text-[18px] font-bold leading-5 text-[#27312b]">
+              {categoryProducts[0]?.categoryNameBn || "ক্যাটাগরি"}
+            </h1>
+
+            <p className="mt-1 text-[11px] text-gray-500">
+              {categoryProducts.length}টি পণ্য • আজকের দাম ও পরিবর্তন
+            </p>
+          </div>
+        </div>
+
+      <div className="mx-auto max-w-6xl mt-5">
+
+        <p className="mb-4 text-xs text-gray-500">
+          মোট {categoryProducts.length}টি পণ্য দেখানো হচ্ছে
+        </p>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {categoryProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
+          ))}
+        </div>
+
+      </div>
+    </main>
+  );
+};
+
+export default CategoryPage;

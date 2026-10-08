@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+
 
 const Header = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -9,47 +9,55 @@ const Header = () => {
   });
 
   return (
-    <header className="w-full border-b border-gray-200 bg-white shadow-sm">
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        
-        
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-green-600 p-2 shadow-sm">
-            <Image
-              src="/logo-icon.png"
-              alt="বাজার দর"
-              width={32}
-              height={32}
-              className="h-full w-full object-contain"
-            />
+    <header className="w-full border-t border-gray-200 bg-white">
+
+      <div className="mx-auto max-w-5xl px-3 sm:px-4">
+
+        <div className="flex h-14 items-center justify-between">
+
+          <div className="flex items-center gap-2">
+
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-600 p-1">
+              <Image
+                src="/logo-icon.png"
+                alt="বাজার দর"
+                width={24}
+                height={24}
+                className="h-full w-full object-contain"
+              />
+            </div>
+
+            <div className="leading-tight">
+              <h2 className="text-xl font-bold text-gray-900">
+                বাজার দর
+              </h2>
+
+              <p className="text-[12px] text-gray-500">
+                {date}
+              </p>
+
+            </div>
+
           </div>
 
-          <div>
-            <h2 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
-              বাজার দর
-            </h2>
+          <div className="flex gap-2">
 
-            <p className="mt-0.5 text-xs text-gray-500 sm:text-sm">
-              {date || "তারিখ লোড হচ্ছে..."}
-            </p>
+            <button
+              type="button"
+              className="rounded-md border border-gray-300 px-3 py-1 text-[15px] text-gray-700 hover:border-green-600 hover:text-green-700"
+            >
+              সাইন ইন
+            </button>
+
+            <button
+              type="button"
+              className="rounded-md bg-green-600 px-3 py-1 text-[15px] text-white shadow-sm hover:bg-green-700"
+            >
+              সাইন আপ
+            </button>
+
           </div>
-        </div>
 
-       
-        <div className="flex w-full gap-2 sm:w-auto">
-          <button
-            type="button"
-            className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:border-green-600 hover:text-green-700 active:scale-95 sm:flex-none sm:px-5"
-          >
-            সাইন ইন
-          </button>
-
-          <button
-            type="button"
-            className="flex-1 rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-green-700 active:scale-95 sm:flex-none sm:px-5"
-          >
-            সাইন আপ
-          </button>
         </div>
       </div>
     </header>

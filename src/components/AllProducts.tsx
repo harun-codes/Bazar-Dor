@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface ProductsProps {
     id: number;
     slug: string;
@@ -19,7 +21,7 @@ interface ProductsProps {
 
 const AllProducts = async () => {
     const res = await fetch(
-        "https://api.api-store.workers.dev/api/bazardor/products",
+        "https://api.abcz.workers.dev/api/bazardor/products",
         {
             cache: "no-store",
         }
@@ -53,6 +55,14 @@ const AllProducts = async () => {
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
 
                     {products.map((product) => (
+
+                        <Link
+                            key={product.id}
+                            href={`/product/${product.slug}`}
+                            className="block rounded-2xl border border-[#e0e8e2] bg-white p-3.5 transition duration-200 hover:shadow-md hover:border-green-500"
+                        >
+
+
                         <div
                             key={product.id}
                             className="rounded-2xl border border-[#e1e8e3] bg-white p-3.5 transition duration-200 hover:shadow-md"
@@ -103,6 +113,8 @@ const AllProducts = async () => {
 
                             </div>
                         </div>
+                            </Link>
+                        
                     ))}
 
                 </div>

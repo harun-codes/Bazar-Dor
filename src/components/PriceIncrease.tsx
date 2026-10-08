@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface IncreaseProductsProps {
     id: number;
     slug: string;
@@ -19,7 +21,7 @@ interface IncreaseProductsProps {
 
 const PriceIncrease = async () => {
     const res = await fetch(
-        "https://api.api-store.workers.dev/api/bazardor/products",
+        "https://api.abcz.workers.dev/api/bazardor/products",
         {
             cache: "no-store",
         }
@@ -40,6 +42,7 @@ const PriceIncrease = async () => {
         .slice(0, 6);
 
     return (
+
         <section className="bg-[#f3f7f4] px-4 py-6 mt-10 rounded-md">
             <div className="mx-auto max-w-6xl">
 
@@ -53,50 +56,57 @@ const PriceIncrease = async () => {
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
 
                     {increasedProducts.map((product) => (
-                        <div
+                        <Link
                             key={product.id}
-                            className="rounded-2xl border border-[#e0e8e2] bg-white p-3.5 transition duration-200 hover:shadow-md"
+                            href={`/product/${product.slug}`}
+                            className="block rounded-2xl border border-[#e0e8e2] bg-white p-3.5 transition duration-200 hover:shadow-md hover:border-green-500"
                         >
 
-                            <div className="flex items-start gap-3">
+                            <div
+                                key={product.id}
+                                className="rounded-2xl border border-[#e0e8e2] bg-white p-3.5 transition duration-200 hover:shadow-md"
+                            >
 
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1f6f2] text-2xl">
-                                    {product.image}
+                                <div className="flex items-start gap-3">
+
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1f6f2] text-2xl">
+                                        {product.image}
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-[15px] font-semibold text-[#26332d]">
+                                            {product.nameBn}
+                                        </h3>
+
+                                        <p className="mt-0.5 text-xs text-gray-500">
+                                            প্রতি{" "}
+                                            {product.unit === "kg"
+                                                ? "কেজি"
+                                                : product.unit}
+                                        </p>
+                                    </div>
+
                                 </div>
 
-                                <div>
-                                    <h3 className="text-[15px] font-semibold text-[#26332d]">
-                                        {product.nameBn}
-                                    </h3>
+                                <div className="mt-4 flex items-end justify-between">
 
-                                    <p className="mt-0.5 text-xs text-gray-500">
-                                        প্রতি{" "}
-                                        {product.unit === "kg"
-                                            ? "কেজি"
-                                            : product.unit}
-                                    </p>
+                                    <div>
+                                        <p className="text-xs text-gray-500">
+                                            আজকের দাম
+                                        </p>
+
+                                        <p className="mt-0.5 text-[17px] font-bold text-[#26332d]">
+                                            {product.today} টাকা
+                                        </p>
+                                    </div>
+
+                                    <div className="rounded-full bg-red-50 px-2.5 py-1 text-[11px] font-medium text-red-500">
+                                        ▲ {product.change.pct.toFixed(1)}%
+                                    </div>
+
                                 </div>
-
-                            </div>
-
-                            <div className="mt-4 flex items-end justify-between">
-
-                                <div>
-                                    <p className="text-xs text-gray-500">
-                                        আজকের দাম
-                                    </p>
-
-                                    <p className="mt-0.5 text-[17px] font-bold text-[#26332d]">
-                                        {product.today} টাকা
-                                    </p>
                                 </div>
-
-                                <div className="rounded-full bg-red-50 px-2.5 py-1 text-[11px] font-medium text-red-500">
-                                    ▲ {product.change.pct.toFixed(1)}%
-                                </div>
-
-                            </div>
-                        </div>
+                            </Link>
                     ))}
                 </div>
             </div>

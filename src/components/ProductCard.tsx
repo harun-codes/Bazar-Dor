@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface Product {
   id: number;
   slug: string;
@@ -23,6 +25,10 @@ const ProductCard = ({
   product: Product;
 }) => {
   return (
+    <Link 
+    className="block rounded-2xl border border-[#e0e8e2] bg-white p-3.5 transition duration-200 hover:shadow-md hover:border-green-500"
+    href={`/product/${product.slug}`}>
+    
     <div className="rounded-2xl border border-[#dfe7e1] bg-white p-3.5 transition duration-200 hover:shadow-md">
 
       <div className="flex items-start gap-3">
@@ -45,7 +51,6 @@ const ProductCard = ({
         </div>
 
       </div>
-
       <div className="mt-4 flex items-end justify-between">
 
         <div>
@@ -76,6 +81,7 @@ const ProductCard = ({
       </div>
 
     </div>
+    </Link>
   );
 };
 

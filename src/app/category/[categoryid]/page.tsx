@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCard";
+import SortableProducts from "@/components/SortableProducts";
 
 interface Product {
   id: number;
@@ -27,7 +27,7 @@ const CategoryPage = async ({
   const { categoryid } = await params;
 
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
+    "https://api.abcz.workers.dev/api/bazardor/products",
     {
       cache: "no-store",
     }
@@ -66,20 +66,11 @@ const CategoryPage = async ({
           </div>
         </div>
 
-      <div className="mx-auto max-w-6xl mt-5">
+        <div className="mx-auto mt-5 max-w-6xl">
 
-        <p className="mb-4 text-xs text-gray-500">
-          মোট {categoryProducts.length}টি পণ্য দেখানো হচ্ছে
-        </p>
-
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {categoryProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-            />
-          ))}
-        </div>
+        <SortableProducts
+          products={categoryProducts}
+        />
 
       </div>
     </main>

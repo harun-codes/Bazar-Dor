@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 interface IncreaseProductsProps {
     id: number;
@@ -21,7 +22,7 @@ interface IncreaseProductsProps {
 const PriceDecrease = async () => {
 
     const res = await fetch(
-        "https://api.api-store.workers.dev/api/bazardor/products",
+        "https://api.abcz.workers.dev/api/bazardor/products",
         {
             cache: "no-store",
         }
@@ -54,6 +55,13 @@ const PriceDecrease = async () => {
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
 
                     {increasedProducts.map((product) => (
+                          <Link
+                            key={product.id}
+                            href={`/product/${product.slug}`}
+                            className="block rounded-2xl border border-[#e0e8e2] bg-white p-3.5 transition duration-200 hover:shadow-md hover:border-green-500"
+                        >
+
+                        
                         <div
                             key={product.id}
                             className="rounded-2xl border border-[#e0e8e2] bg-white p-3.5 transition duration-200 hover:shadow-md"
@@ -98,6 +106,7 @@ const PriceDecrease = async () => {
 
                             </div>
                         </div>
+                        </Link>
                     ))}
 
                 </div>

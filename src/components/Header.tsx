@@ -1,22 +1,26 @@
+
 "use client";
 
 import Image from "next/image";
+import { useSyncExternalStore } from "react";
 
+const subscribeToDate = () => () => {};
+const getDateSnapshot = () =>
+  new Date().toLocaleDateString("bn-BD", { dateStyle: "full" });
+const getServerDateSnapshot = () => "";
 
 const Header = () => {
-  const date = new Date().toLocaleDateString("bn-BD", {
-    dateStyle: "full",
-  });
+  const date = useSyncExternalStore(
+    subscribeToDate,
+    getDateSnapshot,
+    getServerDateSnapshot
+  );
 
   return (
     <header className="w-full border-t border-gray-200 bg-white">
-
       <div className="mx-auto max-w-5xl px-3 sm:px-4">
-
         <div className="flex h-14 items-center justify-between">
-
           <div className="flex items-center gap-2">
-
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-600 p-1">
               <Image
                 src="/logo-icon.png"
@@ -33,15 +37,12 @@ const Header = () => {
               </h2>
 
               <p className="text-[12px] text-gray-500">
-                {date}
+                {date || "তারিখ লোড হচ্ছে..."}
               </p>
-
             </div>
-
           </div>
 
           <div className="flex gap-2">
-
             <button
               type="button"
               className="rounded-md border border-gray-300 px-3 py-1 text-[15px] text-gray-700 hover:border-green-600 hover:text-green-700"
@@ -55,9 +56,7 @@ const Header = () => {
             >
               সাইন আপ
             </button>
-
           </div>
-
         </div>
       </div>
     </header>

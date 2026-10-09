@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Noto_Sans_Bengali } from "next/font/google";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
@@ -7,6 +8,11 @@ import Header from "@/components/Header";
 import Navlinks from "@/components/NavLinks";
 import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
+
+const bengaliFont = Noto_Sans_Bengali({
+  subsets: ["bengali", "latin"],
+  display: "swap",
+});
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -76,7 +82,7 @@ export default async function RootLayout({
             data-theme="light"
             className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
         >
-            <body className="min-h-full bg-white text-gray-900">
+            <body className={bengaliFont.className}>
 
                 <Header />
                 <Navlinks />

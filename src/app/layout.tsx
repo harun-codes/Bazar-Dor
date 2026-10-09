@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Bengali } from "next/font/google";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
 import "./globals.css";
 
@@ -9,9 +10,10 @@ import Navlinks from "@/components/NavLinks";
 import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
 
+
 const bengaliFont = Noto_Sans_Bengali({
-  subsets: ["bengali", "latin"],
-  display: "swap",
+    subsets: ["bengali", "latin"],
+    display: "swap",
 });
 
 const geistSans = Geist({
@@ -57,7 +59,7 @@ export default async function RootLayout({
 
     try {
         const res = await fetch(
-            "https://api.abcz.workers.dev/api/bazardor/products",
+            "https://api.api-store.workers.dev/api/bazardor/products",
             {
                 next: {
                     revalidate: 60,
@@ -79,6 +81,7 @@ export default async function RootLayout({
     return (
         <html
             lang="bn"
+            suppressHydrationWarning
             data-theme="light"
             className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
         >
@@ -88,7 +91,19 @@ export default async function RootLayout({
                 <Navlinks />
                 <Marquee products={products} />
                 {children}
-                <Footer/>
+                <Footer />
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                    toastOptions={{
+                        duration: 3000,
+                        style: {
+                            fontSize: "14px",
+                        }
+                    }}
+                />
+
+
 
             </body>
         </html>

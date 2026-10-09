@@ -37,7 +37,7 @@ const ProductDetailsPage = async ({ params }: PageProps) => {
   const { productid } = await params;
 
   const productsRes = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/products",
+    "https://api.api-store.workers.dev/api/bazardor/products",
     {
       cache: "no-store",
     }
@@ -59,7 +59,7 @@ const ProductDetailsPage = async ({ params }: PageProps) => {
     throw new Error("Product not found");
   }
   const detailsRes = await fetch(
-    `https://api.abcz.workers.dev/api/bazardor/products/${product.id}`,
+    `https://api.api-store.workers.dev/api/bazardor/products/${product.id}`,
     {
       cache: "no-store",
     }

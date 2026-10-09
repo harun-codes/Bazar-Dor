@@ -8,7 +8,7 @@ interface NavlinksProps {
 
 const Navlinks = async () => {
   const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/categories",
+    "https://api.api-store.workers.dev/api/bazardor/categories",
     {
       next: {
         revalidate: 60,

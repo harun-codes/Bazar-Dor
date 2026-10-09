@@ -3,6 +3,7 @@
 
 import Image from "next/image";
 import { useSyncExternalStore } from "react";
+import UserInfo from "./UserInfo";
 
 const subscribeToDate = () => () => {};
 const getDateSnapshot = () =>
@@ -42,21 +43,7 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="flex gap-2">
-            <button
-              type="button"
-              className="rounded-md border border-gray-300 px-3 py-1 text-[15px] text-gray-700 hover:border-green-600 hover:text-green-700"
-            >
-              সাইন ইন
-            </button>
-
-            <button
-              type="button"
-              className="rounded-md bg-green-600 px-3 py-1 text-[15px] text-white shadow-sm hover:bg-green-700"
-            >
-              সাইন আপ
-            </button>
-          </div>
+          <UserInfo/>
         </div>
       </div>
     </header>

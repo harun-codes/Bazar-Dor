@@ -94,16 +94,7 @@ export default async function RootLayout({
                 <Footer />
                 <Toaster
                     position="top-center"
-                    reverseOrder={false}
-                    toastOptions={{
-                        duration: 3000,
-                        style: {
-                            fontSize: "14px",
-                        }
-                    }}
                 />
-
-
 
             </body>
         </html>

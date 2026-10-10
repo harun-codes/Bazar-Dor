@@ -1,4 +1,5 @@
 import SortableProducts from "@/components/SortableProducts";
+import { notFound } from "next/navigation";
 
 interface Product {
   id: number;
@@ -47,26 +48,32 @@ const CategoryPage = async ({
     (product) => product.category === categoryid
   );
 
+  if (categoryProducts.length === 0) {
+
+    notFound();
+
+  }
+
   return (
     <main className="bg-[#f2f7f3] px-4 py-4 mt-5">
 
-         <div className="flex mx-auto max-w-6xl items-center gap-3 border border-[#dfe6e1] bg-white px-5 py-5">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f1f3f1] text-2xl">
-            {categoryProducts[0]?.categoryIcon}
-          </div>
-
-          <div>
-            <h1 className="text-[18px] font-bold leading-5 text-[#27312b]">
-              {categoryProducts[0]?.categoryNameBn || "ক্যাটাগরি"}
-            </h1>
-
-            <p className="mt-1 text-[11px] text-gray-500">
-              {categoryProducts.length}টি পণ্য • আজকের দাম ও পরিবর্তন
-            </p>
-          </div>
+      <div className="flex mx-auto max-w-6xl items-center gap-3 border border-[#dfe6e1] bg-white px-5 py-5">
+        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f1f3f1] text-2xl">
+          {categoryProducts[0]?.categoryIcon}
         </div>
 
-        <div className="mx-auto mt-5 max-w-6xl">
+        <div>
+          <h1 className="text-[18px] font-bold leading-5 text-[#27312b]">
+            {categoryProducts[0]?.categoryNameBn || "ক্যাটাগরি"}
+          </h1>
+
+          <p className="mt-1 text-[11px] text-gray-500">
+            {categoryProducts.length}টি পণ্য • আজকের দাম ও পরিবর্তন
+          </p>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-5 max-w-6xl">
 
         <SortableProducts
           products={categoryProducts}

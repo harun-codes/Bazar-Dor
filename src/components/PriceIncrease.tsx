@@ -20,98 +20,164 @@ interface IncreaseProductsProps {
 }
 
 const PriceIncrease = async () => {
+
     const res = await fetch(
         "https://api.api-store.workers.dev/api/bazardor/products",
         {
-            cache: "no-store",
+            next: {
+                revalidate: 60,
+            },
         }
     );
 
+
     if (!res.ok) {
-        throw new Error("Failed to fetch products");
+        return null;
     }
 
+
     const result = await res.json();
+
+
     const products: IncreaseProductsProps[] = Array.isArray(result)
         ? result
         : result.data || [];
 
+
     const increasedProducts = products
-        .filter((product) => product.change.dir === "up")
-        .sort((a, b) => b.today - a.today)
+        .filter(
+            (product) => product.change?.dir === "up"
+        )
+        .sort(
+            (a, b) => b.today - a.today
+        )
         .slice(0, 6);
+
+
+
+    if (increasedProducts.length === 0) {
+        return null;
+    }
+
+
 
     return (
 
         <section className="bg-[#f3f7f4] px-4 py-6 mt-10 rounded-md">
+
             <div className="mx-auto max-w-6xl">
 
                 <div className="mb-4">
+
                     <h2 className="flex items-center gap-2 text-xl font-bold text-[#26332d]">
-                        <span className="text-red-500">▲</span>
+
+                        <span className="text-red-500">
+                            ▲
+                        </span>
+
                         আজ দাম বেড়েছে
+
                     </h2>
+
                 </div>
+
+
 
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
 
+
                     {increasedProducts.map((product) => (
+
                         <Link
                             key={product.id}
                             href={`/product/${product.slug}`}
                             className="block rounded-2xl border border-[#e0e8e2] bg-white p-3.5 transition duration-200 hover:shadow-md hover:border-green-500"
                         >
 
-                            <div
-                                key={product.id}
-                                className="rounded-2xl border border-[#e0e8e2] bg-white p-3.5 transition duration-200 hover:shadow-md"
-                            >
 
-                                <div className="flex items-start gap-3">
+                            <div className="flex items-start gap-3">
 
-                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1f6f2] text-2xl">
-                                        {product.image}
-                                    </div>
 
-                                    <div>
-                                        <h3 className="text-[15px] font-semibold text-[#26332d]">
-                                            {product.nameBn}
-                                        </h3>
+                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1f6f2] text-2xl">
 
-                                        <p className="mt-0.5 text-xs text-gray-500">
-                                            প্রতি{" "}
-                                            {product.unit === "kg"
-                                                ? "কেজি"
-                                                : product.unit}
-                                        </p>
-                                    </div>
+                                    {product.image}
 
                                 </div>
 
-                                <div className="mt-4 flex items-end justify-between">
 
-                                    <div>
-                                        <p className="text-xs text-gray-500">
-                                            আজকের দাম
-                                        </p>
 
-                                        <p className="mt-0.5 text-[17px] font-bold text-[#26332d]">
-                                            {product.today} টাকা
-                                        </p>
-                                    </div>
+                                <div>
 
-                                    <div className="rounded-full bg-red-50 px-2.5 py-1 text-[11px] font-medium text-red-500">
-                                        ▲ {product.change.pct.toFixed(1)}%
-                                    </div>
+                                    <h3 className="text-[15px] font-semibold text-[#26332d]">
+
+                                        {product.nameBn}
+
+                                    </h3>
+
+
+                                    <p className="mt-0.5 text-xs text-gray-500">
+
+                                        প্রতি {product.unit === "kg"
+                                            ? "কেজি"
+                                            : product.unit}
+
+                                    </p>
 
                                 </div>
+
+
+                            </div>
+
+
+
+
+                            <div className="mt-4 flex items-end justify-between">
+
+
+                                <div>
+
+                                    <p className="text-xs text-gray-500">
+
+                                        আজকের দাম
+
+                                    </p>
+
+
+                                    <p className="mt-0.5 text-[17px] font-bold text-[#26332d]">
+
+                                        {product.today} টাকা
+
+                                    </p>
+
                                 </div>
-                            </Link>
+
+
+
+                                <div className="rounded-full bg-red-50 px-2.5 py-1 text-[11px] font-medium text-red-500">
+
+                                    ▲ {product.change.pct.toFixed(1)}%
+
+                                </div>
+
+
+                            </div>
+
+
+                        </Link>
+
                     ))}
+
+
                 </div>
+
+
             </div>
+
+
         </section>
+
     );
 };
+
 
 export default PriceIncrease;

@@ -65,17 +65,17 @@ const ProductCard = ({
 
         <div
           className={`rounded-full px-2.5 py-1 text-[11px] font-medium ${
-            product.change.dir === "up"
+            product.change?.dir === "up"
               ? "bg-red-50 text-red-500"
-              : product.change.dir === "down"
+              : product.change?.dir === "down"
               ? "bg-green-50 text-green-600"
               : "bg-gray-100 text-gray-500"
           }`}
         >
-          {product.change.dir === "up" && "▲ "}
-          {product.change.dir === "down" && "▼ "}
+          {product.change?.dir === "up" && "▲ "}
+          {product.change?.dir === "down" && "▼ "}
 
-          {product.change.pct.toFixed(1)}%
+          {product.change?.pct?.toFixed(1) || 0}%
         </div>
 
       </div>

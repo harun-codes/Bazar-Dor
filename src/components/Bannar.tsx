@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useSyncExternalStore } from "react";
 import Image from "next/image";
 
+const subscribe = () => () => {};
+const getDateSnapshot = () =>
+  new Date().toLocaleDateString("bn-BD", { dateStyle: "full" });
+const getServerDateSnapshot = () => "";
+
 const Banner = () => {
-  const date = useMemo(
-    () =>
-      new Date().toLocaleDateString("bn-BD", {
-        dateStyle: "full",
-      }),
-    [],
+  const date = useSyncExternalStore(
+    subscribe,
+    getDateSnapshot,
+    getServerDateSnapshot
   );
 
   return (
@@ -39,9 +42,9 @@ const Banner = () => {
             সব পণ্য দেখুন
           </button>
         </div>
+
       </div>
 
-    
       <div className="relative flex w-40 shrink-0 items-center justify-center sm:w-52 md:w-64">
         <Image
           src="/bazar-hero.png"
@@ -52,6 +55,7 @@ const Banner = () => {
           className="h-auto w-full object-contain"
         />
       </div>
+
     </section>
   );
 };

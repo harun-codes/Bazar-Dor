@@ -32,7 +32,7 @@ interface DetailsProductProps {
 }
 
 const DetailsProduct = ({ data }: DetailsProductProps) => {
-  const isUp = data.change.dir === "up";
+  const isUp = data.change?.dir === "up";
 
   const marketPrices =
     data.markets?.flatMap((market) => [market.min, market.max]) ?? [];
@@ -47,7 +47,6 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8 bg-[#f4f6f3] min-h-screen">
-      
       <nav className="mb-6 flex items-center gap-2 text-sm text-gray-500">
         <Link href="/" className="hover:text-gray-800 transition">
           হোম
@@ -61,7 +60,6 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
       </nav>
 
       <section className="mb-6 rounded-2xl bg-white p-6 sm:p-8 shadow-sm border border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
-        
         <div className="flex items-center gap-6 w-full md:w-auto">
           <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gray-100 text-4xl sm:h-24 sm:w-24 sm:text-5xl">
             {data.image}
@@ -71,7 +69,7 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
             <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
               {data.nameBn}
             </h1>
-            
+
             <p className="mt-1 text-sm text-gray-500">
               প্রতি {data.unit} · {data.categoryNameBn}
             </p>
@@ -92,16 +90,13 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
             <p className="mt-1 text-3xl font-extrabold text-gray-900">
               {data.today}
             </p>
-            <p className="mt-0.5 text-xs text-gray-500">
-              টাকা / {data.unit}
-            </p>
+            <p className="mt-0.5 text-xs text-gray-500">টাকা / {data.unit}</p>
             <div className="mt-2 inline-flex items-center justify-center gap-1 text-xs font-bold text-red-600">
               <span>{isUp ? "▲" : "▼"}</span>
-              <span>{data.change.pct}%</span>
+              <span>{data.change?.pct}%</span>
             </div>
           </div>
         </div>
-
       </section>
 
       <section className="mb-8 rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
@@ -110,11 +105,11 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
         </h2>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          
           <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-2xs">
             <p className="text-xs text-gray-500">সর্বনিম্ন দাম</p>
             <p className="mt-2 text-2xl font-bold text-emerald-600">
-              {lowestPrice} <span className="text-base font-semibold">টাকা</span>
+              {lowestPrice}{" "}
+              <span className="text-base font-semibold">টাকা</span>
             </p>
             <p className="mt-2 text-xs text-gray-400">সবচেয়ে কম দামের বাজার</p>
           </div>
@@ -122,9 +117,12 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
           <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-2xs">
             <p className="text-xs text-gray-500">সর্বাধিক দাম</p>
             <p className="mt-2 text-2xl font-bold text-rose-600">
-              {highestPrice} <span className="text-base font-semibold">টাকা</span>
+              {highestPrice}{" "}
+              <span className="text-base font-semibold">টাকা</span>
             </p>
-            <p className="mt-2 text-xs text-gray-400">সবচেয়ে বেশি দামের বাজার</p>
+            <p className="mt-2 text-xs text-gray-400">
+              সবচেয়ে বেশি দামের বাজার
+            </p>
           </div>
 
           <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-2xs">
@@ -132,14 +130,14 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
             <p className="mt-2 text-2xl font-bold text-emerald-600">
               {data.today} <span className="text-base font-semibold">টাকা</span>
             </p>
-            <p className="mt-2 text-xs text-gray-400">প্রতি {data.unit}-এর হিসাবে</p>
+            <p className="mt-2 text-xs text-gray-400">
+              প্রতি {data.unit}-এর হিসাবে
+            </p>
           </div>
-
         </div>
       </section>
 
       <section className="rounded-2xl bg-white p-6 shadow-sm border border-gray-100">
-        
         <div className="mb-6">
           <h2 className="text-lg font-bold text-gray-900">
             বাজারভিত্তিক আজকের দাম
@@ -167,11 +165,15 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
                 <div className="mt-3 grid grid-cols-2 gap-2 text-xs border-t border-gray-200/60 pt-3">
                   <div>
                     <span className="text-gray-500">সর্বনিম্ন: </span>
-                    <span className="font-bold text-gray-800">{market.min} টাকা</span>
+                    <span className="font-bold text-gray-800">
+                      {market.min} টাকা
+                    </span>
                   </div>
                   <div>
                     <span className="text-gray-500">সর্বাধিক: </span>
-                    <span className="font-bold text-gray-800">{market.max} টাকা</span>
+                    <span className="font-bold text-gray-800">
+                      {market.max} টাকা
+                    </span>
                   </div>
                 </div>
               </div>
@@ -193,12 +195,14 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
 
             <tbody className="divide-y divide-gray-100">
               {data.markets?.map((market, index) => {
-                const avgMarketPrice = (
-                  (market.min + market.max) / 2
-                ).toLocaleString("bn-BD", { maximumFractionDigits: 2 });
-
+                const avgMarketPrice = ((market.min + market.max) / 2).toFixed(
+                  2,
+                );
                 return (
-                  <tr key={`${market.market}-${index}`} className="hover:bg-gray-50/50">
+                  <tr
+                    key={`${market.market}-${index}`}
+                    className="hover:bg-gray-50/50"
+                  >
                     <td className="py-3.5 font-bold text-gray-900">
                       {market.market}
                     </td>
@@ -224,7 +228,6 @@ const DetailsProduct = ({ data }: DetailsProductProps) => {
             <p className="text-gray-500">বাজারের তথ্য পাওয়া যায়নি।</p>
           </div>
         )}
-
       </section>
     </div>
   );

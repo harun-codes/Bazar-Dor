@@ -1,4 +1,5 @@
 import DetailsProduct from "@/components/DetailsProduct";
+import { notFound } from "next/navigation";
 
 interface Market {
   market: string;
@@ -33,51 +34,89 @@ interface PageProps {
   }>;
 }
 
-const ProductDetailsPage = async ({ params }: PageProps) => {
+
+const ProductDetailsPage = async ({
+  params,
+}: PageProps) => {
+
+
   const { productid } = await params;
+
+
 
   const productsRes = await fetch(
     "https://api.api-store.workers.dev/api/bazardor/products",
     {
-      cache: "no-store",
+      next: {
+        revalidate: 60,
+      },
     }
   );
 
+
+
   if (!productsRes.ok) {
-    throw new Error("Failed to fetch products");
+    notFound();
   }
+
+
 
   const productsResult = await productsRes.json();
 
-  const products: Product[] = productsResult.data ?? productsResult;
+
+
+  const products: Product[] = Array.isArray(productsResult)
+    ? productsResult
+    : productsResult.data || [];
+
+
 
   const product = products.find(
     (item) => item.slug === productid
   );
 
+
+
   if (!product) {
-    throw new Error("Product not found");
+    notFound();
   }
+
+
+
   const detailsRes = await fetch(
     `https://api.api-store.workers.dev/api/bazardor/products/${product.id}`,
     {
-      cache: "no-store",
+      next: {
+        revalidate: 60,
+      },
     }
   );
 
+
+
   if (!detailsRes.ok) {
-    throw new Error("Failed to fetch product details");
+    notFound();
   }
+
+
 
   const detailsResult = await detailsRes.json();
 
-  const details: Product = detailsResult.data ?? detailsResult;
+
+
+  const details: Product =
+    detailsResult.data ?? detailsResult;
+
+
 
   return (
     <main className="min-h-screen bg-gray-50 py-6">
+
       <DetailsProduct data={details} />
+
     </main>
   );
 };
+
 
 export default ProductDetailsPage;

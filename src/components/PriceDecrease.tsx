@@ -23,11 +23,6 @@ const PriceDecrease = async () => {
 
     const res = await fetch(
         "https://api.abcz.workers.dev/api/bazardor/products",
-        {
-            next: {
-                revalidate: 60,
-            },
-        }
     );
 
 

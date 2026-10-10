@@ -10,6 +10,7 @@ const Header = () => {
 
   useEffect(() => {
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDate(
       new Date().toLocaleDateString("bn-BD", {
         dateStyle: "full",

@@ -8,10 +8,9 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 
 const UserInfo = () => {
+
   const router = useRouter();
-
   const { data: session } = authClient.useSession();
-
   const user = session?.user;
 
   const [open, setOpen] = useState(false);

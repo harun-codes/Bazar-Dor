@@ -45,7 +45,7 @@ const ProductDetailsPage = async ({
 
 
   const productsRes = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
+    "https://api.abcz.workers.dev/api/bazardor/products",
     {
       next: {
         revalidate: 60,
@@ -82,9 +82,8 @@ const ProductDetailsPage = async ({
   }
 
 
-
   const detailsRes = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/products/${product.id}`,
+    `https://api.abcz.workers.dev/api/bazardor/products/${product.id}`,
     {
       next: {
         revalidate: 60,

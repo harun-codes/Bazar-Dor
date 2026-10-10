@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface NavItemProps {
   href: string;
@@ -6,16 +9,20 @@ interface NavItemProps {
   icon?: string;
 }
 
-const NavItem = ({
+const ActiveNavItem = ({
   href,
   name,
   icon,
 }: NavItemProps) => {
 
+  const pathname = usePathname();
+
+  const isActive = pathname === href;
+
   return (
     <Link
       href={href}
-      className="
+      className={`
         flex
         shrink-0
         items-center
@@ -25,13 +32,23 @@ const NavItem = ({
         py-1.5
         text-sm
         font-medium
-        text-gray-700
-        hover:bg-green-50
-        hover:text-green-700
         transition
-      "
-    >
 
+        ${
+          isActive
+            ? `
+              bg-[#009639]
+              text-white
+              shadow-sm
+            `
+            : `
+              text-gray-700
+              hover:bg-green-50
+              hover:text-green-700
+            `
+        }
+      `}
+    >
       {icon && (
         <span className="text-xs">
           {icon}
@@ -46,4 +63,4 @@ const NavItem = ({
   );
 };
 
-export default NavItem;
+export default ActiveNavItem;

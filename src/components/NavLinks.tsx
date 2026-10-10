@@ -1,4 +1,5 @@
-import NavItem from "./NavItem";
+import NavItem from "./ActiveNavItem";
+import { Suspense } from "react";
 
 interface NavlinksProps {
   id: string;
@@ -52,16 +53,20 @@ const Navlinks = async () => {
                 "
         >
 
+
+        <Suspense>
           <NavItem href="/" name="হোম" />
 
           {data.map((item) => (
-            <NavItem
+              <NavItem
               key={item.id}
               href={`/category/${item.id}`}
               name={item.nameBn}
               icon={item.icon}
-            />
-          ))}
+              />
+            ))}
+            </Suspense>
+
         </div>
       </div>
     </nav>
